@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱
+    钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱22
   </div>
 </template>
 
