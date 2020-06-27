@@ -1,9 +1,8 @@
 <template>
   <div class="hello">
-<<<<<<< HEAD
     <el-row style="with:100%">
       <el-col :span="6">
-        <div style="width:100%;height:100%"> </div>
+        <div style="width:100%;height:100%"> y</div>
       </el-col>
       <el-col :span="12">
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
@@ -19,9 +18,6 @@
         <div style="width:100%;height:100%"></div>
       </el-col>
     </el-row>
-=======
-    钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱钱223333
->>>>>>> 49c4909ef704d1d367cfd53dd56d7048d976e4c8
   </div>
 </template>
 
