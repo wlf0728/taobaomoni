@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <el-row>
-      <el-col :span="12" class="content" :offset="6">
+      <el-col :span="14" class="content" :offset="5">
         <div class="tabPannel">
           <div :class="activeTab == 1?'active':'notactive'" @click="activeTab = 1">
             基础信息
@@ -25,7 +25,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12" class="content" :offset="6">
+      <el-col :span="14" class="content" :offset="5">
         <sales-infor v-if="activeName == 2"></sales-infor>
         <pay-ment v-if="activeName == 4"></pay-ment>
         <logi-stics v-if="activeName == 5"></logi-stics>
