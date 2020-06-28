@@ -2,16 +2,24 @@
   <div class="hello">
     <el-row style="with:100%">
       <el-col :span="6">
-        <div style="width:100%;height:100%"> y</div>
+        <div style="width:100%;height:100%;background-color: #fafafa;">&nbsp</div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="12" class="content">
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-          <el-tab-pane label="基础信息" name="first">基础信息</el-tab-pane>
-          <el-tab-pane label="销售信息" name="second">销售信息</el-tab-pane>
-          <el-tab-pane label="图文描述" name="third">图文描述</el-tab-pane>
-          <el-tab-pane label="支付信息" name="fourth">支付信息</el-tab-pane>
-          <el-tab-pane label="物流信息" name="fifth">物流信息</el-tab-pane>
-          <el-tab-pane label="售后服务" name="sixth">售后服务</el-tab-pane>
+          <el-tab-pane label="基础信息" name="first"></el-tab-pane>
+          <el-tab-pane label="销售信息" name="second">
+            <sales-infor></sales-infor>
+          </el-tab-pane>
+          <el-tab-pane label="图文描述" name="third"></el-tab-pane>
+          <el-tab-pane label="支付信息" name="fourth">
+            <pay-ment></pay-ment>
+          </el-tab-pane>
+          <el-tab-pane label="物流信息" name="fifth">
+            <logi-stics></logi-stics>
+          </el-tab-pane>
+          <el-tab-pane label="售后服务" name="sixth">
+            <after-sale></after-sale>
+          </el-tab-pane>
         </el-tabs>
       </el-col>
       <el-col :span="6">
@@ -22,8 +30,19 @@
 </template>
 
 <script>
+import afterSale from './afterSale.vue'
+import logiStics from './logiStics.vue'
+import payMent from './payMent.vue'
+import salesInfor from './salesInfor.vue'
+
 export default {
   name: 'HelloWorld',
+  components: {
+    afterSale,
+    logiStics,
+    payMent,
+    salesInfor
+  },
   data() {
     return {
       activeName: 'first'
@@ -45,5 +64,8 @@ export default {
 </script>
 
 <style scoped>
-
+.content {
+  background-color: #fff;
+  padding: 0 10px;
+}
 </style>
