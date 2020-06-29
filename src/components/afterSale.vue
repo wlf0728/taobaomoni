@@ -17,7 +17,8 @@
                     <el-checkbox-group v-model="form.type">
                         <el-checkbox label="服务承诺：该类商品必须支持【七天退货】服务" name="type"></el-checkbox>
                     </el-checkbox-group>
-                    <div class="word2">承诺更好服务可通过 <span style="color:rgb(128, 145, 225);">【交易合约】</span>设置</div>
+                    <div class="word2">承诺更好服务可通过
+                        <span style="color:rgb(128, 145, 225);">【交易合约】</span>设置</div>
 
                 </el-form-item>
                 <el-form-item label="上架时间">
@@ -68,6 +69,7 @@ export default {
 .content {
     background-color: #fff;
     padding-top: 20px;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
 }
 
 .word {
@@ -78,6 +80,7 @@ export default {
     padding: 10px;
     margin-top: 20px;
     background-color: #fff;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgb(238, 238, 238);
 }
 

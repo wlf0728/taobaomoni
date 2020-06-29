@@ -58,12 +58,14 @@ export default {
 .content {
     background-color: #fff;
     padding-top: 20px;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
 }
 
 .title {
     padding: 10px;
     margin-top: 20px;
     background-color: #fff;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgb(238, 238, 238);
 }
 </style>

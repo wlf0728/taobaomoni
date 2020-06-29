@@ -249,6 +249,10 @@ export default {
 </script>
 
 <style scoped>
+.hello {
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
 .wrap_color {
   display: inline-block;
   width: 15px;
@@ -321,7 +325,7 @@ export default {
 }
 
 .tips {
-  color: rgb(146,148,161);
+  color: rgb(146, 148, 161);
   width: 100%;
   height: 50px;
   position: relative;
@@ -330,12 +334,14 @@ export default {
 .content {
   background-color: #fff;
   padding-top: 20px;
+  /*box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);*/
 }
 
 .title {
   padding: 20px;
   margin-top: 20px;
   background-color: #fff;
+  /*box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);*/
   border-bottom: 1px solid rgb(238, 238, 238);
 }
 </style>
