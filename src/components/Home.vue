@@ -26,10 +26,10 @@
     </el-row>
     <el-row>
       <el-col :span="14" class="content" :offset="5">
-        <sales-infor v-if="activeName == 2"></sales-infor>
-        <pay-ment v-if="activeName == 4"></pay-ment>
-        <logi-stics v-if="activeName == 5"></logi-stics>
-        <after-sale v-if="activeName == 6"></after-sale>
+        <sales-infor v-if="activeTab == 2"></sales-infor>
+        <pay-ment v-if="activeTab == 4"></pay-ment>
+        <logi-stics v-if="activeTab == 5"></logi-stics>
+        <after-sale v-if="activeTab == 6"></after-sale>
       </el-col>
     </el-row>
   </div>
