@@ -100,3 +100,28 @@ export default {
   color: #409EFF;
 }
 </style>
+<style>
+::-webkit-scrollbar{
+  width:0px;
+  height:0px;
+}
+::-webkit-scrollbar-track{
+  background: transparent;
+  opacity:0;
+  border-radius:3px;
+}
+::-webkit-scrollbar-thumb{
+background: transparent;
+border-radius:3px;
+}
+::-webkit-scrollbar-thumb:hover{
+background: transparent;
+border-radius:3px;
+}
+::-webkit-scrollbar-corner {
+background: transparent;
+}
+.uni-swiper-wrapper{
+  overflow-y: scroll!important;
+}
+</style>
