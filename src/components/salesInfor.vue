@@ -321,7 +321,7 @@ export default {
 }
 
 .tips {
-  color: rgb(174, 161, 158);
+  color: rgb(146,148,161);
   width: 100%;
   height: 50px;
   position: relative;
@@ -336,6 +336,6 @@ export default {
   padding: 20px;
   margin-top: 20px;
   background-color: #fff;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgb(238, 238, 238);
 }
 </style>

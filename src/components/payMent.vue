@@ -64,6 +64,6 @@ export default {
     padding: 10px;
     margin-top: 20px;
     background-color: #fff;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid rgb(238, 238, 238);
 }
 </style>
