@@ -25,7 +25,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="14" class="content" :offset="5">
+      <el-col :span="14" :offset="5">
         <basicInfo v-if="activeTab == 1"></basicInfo>
         <sales-infor v-if="activeTab == 2"></sales-infor>
         <videoInfo v-if="activeTab == 3"></videoInfo>
