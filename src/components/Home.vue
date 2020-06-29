@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import basicInfo from './basicInfo'
 import afterSale from './afterSale.vue'
 import logiStics from './logiStics.vue'
 import payMent from './payMent.vue'
@@ -44,6 +45,7 @@ import salesInfor from './salesInfor.vue'
 export default {
   name: 'HelloWorld',
   components: {
+    basicInfo,
     afterSale,
     logiStics,
     payMent,
