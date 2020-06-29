@@ -15,11 +15,36 @@
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="主图视频" required>
+                        <el-row>
+                            <el-col :span="6">
+                                <el-upload
+                                    class="avatar-uploader"
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    :show-file-list="false">
+                                    <video src="../assets/c0a23ccb408e81c69c327b6763c16a8d.mp4" class="avatar"></video>
+                                    <!-- <i  class="el-icon-plus avatar-uploader-icon"></i> -->
+                                </el-upload>
+                            </el-col>
+                            <el-col :span="18">
+                                <div class="tips">1.尺寸:此处可使用1:1或16:9比例视频</div>
+                                <div class="tips">2.时长:≤60s,建议30秒以内短视频可优先在爱逛街等推荐频道展现</div>
+                                <div class="tips">2.内容:突出商品1-2个核心卖点，不建议电子相册式的图片翻页视频</div>
+                                <div class="tips">视频不会拍？查看完整教程（<span class="blueTip">点击查看</span>）</div>
+                            </el-col>
+                        </el-row>
                         
+                        <div style="float:right"></div>
                     </el-form-item>
                     <el-form-item label="宝贝视频" required>
                         <div class="tips">宝贝视频将在宝贝详情页中展示，可以更真实，直观表达商品卖点。消费者决策前最后一步，快速提高成交转化。</div>
-                        <div class="tips">您未订购视频服务，或视频服务已过期，如有需要，请先<span>订购视频服务</span></div>
+                        <div class="tips">您未订购视频服务，或视频服务已过期，如有需要，请先<span class="blueTip">订购视频服务</span></div>
+                        <el-upload
+                            class="avatar-uploader"
+                            action="https://jsonplaceholder.typicode.com/posts/"
+                            :show-file-list="false">
+                            <video src="../assets/c0a23ccb408e81c69c327b6763c16a8d.mp4" class="avatar"></video>
+                            <!-- <i  class="el-icon-plus avatar-uploader-icon"></i> -->
+                        </el-upload>
                     </el-form-item>
                     <el-form-item label="电脑端描述" required>
                         <el-radio-group v-model="value">
@@ -48,7 +73,7 @@
                         </vue-ueditor-wrap>
                     </el-form-item>
                     <el-form-item label="店铺中分类" required>
-                        <div class="tips">最多支持选择10项分类，<span>查看店铺分类</span></div>
+                        <div class="tips">最多支持选择10项分类，<span class="blueTip">查看店铺分类</span></div>
                         <el-select v-model="value" placeholder="请选择">
                             <el-option label="item.label" value="item.value"></el-option>
                         </el-select>
@@ -120,12 +145,7 @@ export default {
     padding-top: 20px;
     border-top: 1px solid rgb(238, 238, 238);
 }
-.innerFormArea{
-    width: 90%;
-    padding: 20px 50px 20px 0;
-    background-color: rgb(252, 252, 252);
-    border: 1px solid rgb(238, 238, 238);
-}
+
 .marginBottom{
     margin-bottom: 22px;
 }
@@ -134,5 +154,33 @@ export default {
 }
 .tips{
     color:rgb(174,161,158);
+}
+.blueTip{
+    color:rgb(128, 145, 225)
+}
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+}
+.avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+}
+</style>
+<style>
+.el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.el-upload:hover {
+    border-color: #409EFF;
 }
 </style>

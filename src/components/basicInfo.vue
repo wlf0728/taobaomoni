@@ -16,7 +16,7 @@
                     <el-form-item label="宝贝标题" required>
                         <el-input type="text" placeholder="请输入内容" v-model="value" maxlength="60" show-word-limit style="width:75%">
                         </el-input>
-                        <div class="tips">标题和描述关键词是否违规自检工具：<span>商品合规工具</span></div>
+                        <div class="tips">标题和描述关键词是否违规自检工具：<span class="blueTip">商品合规工具</span></div>
                     </el-form-item>
                     <el-form-item label="类目属性">
                         <div class="tips">错误填写宝贝属性，可能会引起宝贝下架或者搜索量减少，影响您的正常销售，请认真准确填写！</div>
@@ -27,6 +27,7 @@
                                         <el-select v-model="value" placeholder="请选择" class="allWidth">
                                             <el-option label="item.label" value="item.value"></el-option>
                                         </el-select>
+                                        <div class="tips">未找到需要的品牌，<span class="blueTip">点击申请</span></div>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
@@ -175,5 +176,8 @@ export default {
 }
 .tips{
     color:rgb(174,161,158);
+}
+.blueTip{
+    color:rgb(128, 145, 225)
 }
 </style>
