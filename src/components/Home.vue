@@ -26,7 +26,9 @@
     </el-row>
     <el-row>
       <el-col :span="14" class="content" :offset="5">
+        <basicInfo v-if="activeTab == 1"></basicInfo>
         <sales-infor v-if="activeTab == 2"></sales-infor>
+        <videoInfo v-if="activeTab == 3"></videoInfo>
         <pay-ment v-if="activeTab == 4"></pay-ment>
         <logi-stics v-if="activeTab == 5"></logi-stics>
         <after-sale v-if="activeTab == 6"></after-sale>
@@ -37,6 +39,7 @@
 
 <script>
 import basicInfo from './basicInfo'
+import videoInfo from './videoInfo'
 import afterSale from './afterSale.vue'
 import logiStics from './logiStics.vue'
 import payMent from './payMent.vue'
@@ -46,6 +49,7 @@ export default {
   name: 'HelloWorld',
   components: {
     basicInfo,
+    videoInfo,
     afterSale,
     logiStics,
     payMent,
