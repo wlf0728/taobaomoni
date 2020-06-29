@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <el-row>
-      <el-col :span="14" class="content" :offset="5">
+      <el-col :span="14" :offset="5">
         <div class="tabPannel">
           <div :class="activeTab == 1?'active':'notactive'" @click="activeTab = 1">
             基础信息
@@ -73,21 +73,18 @@ export default {
 </script>
 
 <style scoped>
-.content {
-  background-color: #fff;
-  padding: 0 10px;
-}
 .tabPannel{
   width: 100%;
-  height: 43px;
-  border: 1px solid #ccc;
+  height: 50px;
+  background-color: #fff;
   display: flex;
   justify-content: flex-start;
+  box-shadow:0px 2px 8px 0px rgba(0, 0, 0, 0.1);
 }
 .active{
-  height: 42px;
+  height: 48px;
   padding: 0 20px;
-  line-height: 42px;
+  line-height: 48px;
   color: #409EFF;
   cursor: pointer;
   border-top: 2px solid #409EFF;
@@ -95,9 +92,9 @@ export default {
   margin-bottom: -2px;
 }
 .notactive{
-  height: 42px;
+  height: 48px;
   padding: 0 20px;
-  line-height: 42px;
+  line-height: 48px;
   cursor: pointer;
   border-top: #fff 2px solid;
   margin-bottom: -2px;
