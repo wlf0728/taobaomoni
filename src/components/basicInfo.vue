@@ -86,8 +86,16 @@
                                 </el-col>
                             </el-row>
                         </div>
-                 </el-form-item>
+                    </el-form-item>
+                    <el-form-item label="采购地" required>
+                        <el-radio-group v-model="value">
+                            <el-radio :label="3">国内</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
                 </el-form>
+            </div>
+            <div class="bottom">
+
             </div>
         </div>
     </div>
