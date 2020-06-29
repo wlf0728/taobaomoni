@@ -1,10 +1,8 @@
 <template>
     <div class="hello">
-        <el-row class="title">
-            <el-col :span="24">
-                基础信息
-            </el-col>
-        </el-row>
+        <div class="catogary">
+            当前类目：孕妇装/孕产妇用品/营养>>待产用品>>护腰枕
+        </div>
         <el-row class="content">
             <el-col :span="22">
                 
@@ -15,28 +13,17 @@
 
 <script>
 export default {
-    name: 'logiStics',
+    name: 'basicInfo',
     data() {
         return {
-            form: {
-                name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
-            }
+            
         }
     },
     mounted() {
 
     },
     methods: {
-        handleClick: function(tab, event) {
-            console.log(tab, event);
-        },
+        
 
     }
 
@@ -44,6 +31,12 @@ export default {
 </script>
 
 <style scoped>
+.catogary{
+    width: 100%;
+    height: 43px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+}
 .content {
     background-color: #fff;
     margin-top: 20px;
