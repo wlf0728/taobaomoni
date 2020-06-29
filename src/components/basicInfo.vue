@@ -175,7 +175,7 @@ export default {
     width: 100%;
 }
 .tips{
-    color:rgb(174,161,158);
+    color:rgb(146,148,161);
 }
 .blueTip{
     color:rgb(128, 145, 225)
