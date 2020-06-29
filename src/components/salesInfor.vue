@@ -5,76 +5,61 @@
         销售信息
       </el-col>
     </el-row>
-    <el-row class="content">
-      <el-col :span="3" style="text-align:right;padding-right:10px;">
-        颜色分类
-      </el-col>
-      <el-col :span="20">
-        <div class="wrap">
-          <el-row>
-            <el-col :span="8" class="box">
-              <el-checkbox label="" name="type"></el-checkbox>
-              <span class="wrap_color"></span>
-              <span class="wrap_text">可调节款，竹纤维</span>
-              <span class="wrap_btn"></span>
-              <span style="color:#38f;font-size:12px;">选择图片</span>
-            </el-col>
-            <el-col :span="8" class="box">
-              <el-checkbox label="" name="type"></el-checkbox>
-              <span class="wrap_color"></span>
-              <span class="wrap_text">可调节款，竹纤维</span>
-              <span class="wrap_btn"></span>
-              <span style="color:#38f;font-size:12px;">选择图片</span>
-            </el-col>
-            <el-col :span="8" class="box">
-              <el-checkbox label="" name="type"></el-checkbox>
-              <span class="wrap_color"></span>
-              <span class="wrap_text">可调节款，竹纤维</span>
-              <span class="wrap_btn"></span>
-              <span style="color:#38f;font-size:12px;">选择图片</span>
-            </el-col>
-          </el-row>
-        </div>
-      </el-col>
-      <el-col :span="3" style="text-align:right;padding-right:10px;line-height:32px;">
-        宝贝销售规格
-      </el-col>
-      <el-col :span="17" style="line-height:32px;">
-        在标题栏中输入或者选择内容可以进行筛选或批量填充
-      </el-col>
-      <el-col :span="4">
-        <div class="tianchong">批量填充</div>
-      </el-col>
-      <el-col :span="3" style="text-align:right;padding-right:10px;">
-        &nbsp
-      </el-col>
-      <el-col :span="20">
-        <div class="wrap">
+    <div class="content">
+      <el-form label-width="170px">
+        <el-form-item label="颜色分类">
+          <div class="innerFormArea">
+            <div class="wrap">
+              <el-row>
+                <el-col :span="8" class="box" v-for="(item,index) in dataList" :key="index">
+                  <el-checkbox :checked="item.checked" label="" name="type"></el-checkbox>
+                  <span class="wrap_color" :style="{ background: item.color}"></span>
+                  <span class="wrap_text">{{item.name}}</span>
+                  <span class="wrap_btn"></span>
+                  <span style="color:#38f;font-size:12px;">选择图片</span>
+                </el-col>
+              </el-row>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="宝贝销售规格">
+          <div class="tips">在标题栏中输入或者选择内容可以进行筛选或批量填充
+            <div class="tianchong">批量填充</div>
+          </div>
 
-        </div>
-      </el-col>
-    </el-row>
-    <el-row class="content">
-      <el-col :span="2">
-        <div>&nbsp</div>
-      </el-col>
-      <el-col :span="22">
-        <el-form>
-          <el-form-item label="一口价:">
-            <el-input v-model="form.name" style="width:30%"></el-input> 元
-          </el-form-item>
-          <el-form-item label="总数量:">
-            <el-input v-model="form.name" style="width:30%"></el-input> 件
-          </el-form-item>
-          <el-form-item label="商家编码:">
-            <el-input type="text" placeholder="请输入内容" v-model="form.name" maxlength="64" show-word-limit style="width:80%"></el-input>
-          </el-form-item>
-          <el-form-item label="商家条形码:">
-            <el-input type="text" placeholder="请输入内容" v-model="form.name" maxlength="32" show-word-limit style="width:80%"></el-input>
-          </el-form-item>
-        </el-form>
-      </el-col>
-    </el-row>
+          <div class="innerFormArea">
+            <div class="wrap">
+              <el-table :data="tableData" border style="width: 100%" size="small">
+                <el-table-column prop="date" label="颜色分类" width="200">
+                </el-table-column>
+                <el-table-column prop="name" label="价格">
+                </el-table-column>
+                <el-table-column prop="address" label="数量">
+                </el-table-column>
+                <el-table-column prop="addres" label="商家编码">
+                </el-table-column>
+                <el-table-column prop="addres" label="商家条形码">
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="一口价:" required>
+          <el-input type="text" placeholder="请输入内容" v-model="form.name" style="width:30%">
+          </el-input> 元
+        </el-form-item>
+        <el-form-item label="总数量:" required>
+          <el-input type="text" placeholder="请输入内容" v-model="form.name" style="width:30%">
+          </el-input> 件
+        </el-form-item>
+        <el-form-item label="商家编码:">
+          <el-input type="text" placeholder="请输入内容" v-model="form.name" maxlength="64" show-word-limit style="width:80%"></el-input>
+        </el-form-item>
+        <el-form-item label="商家条形码:">
+          <el-input type="text" placeholder="请输入内容" v-model="form.name" maxlength="64" show-word-limit style="width:80%"></el-input>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -92,7 +77,162 @@ export default {
         type: [],
         resource: '',
         desc: ''
-      }
+      },
+      dataList: [
+        {
+          color: 'green',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#38f',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#925800',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#e4de20',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#ccc',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#3ef165',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#def13e',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#999',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#8c9447',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#70009e',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: 'blue',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#fff',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#e87ab7',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#de5aff',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: '#5a0071',
+          name: "可调节款，竹纤维",
+          checked: true
+        },
+        {
+          color: 'red',
+          name: "红色",
+          checked: false
+        },
+        {
+          color: 'yellow',
+          name: "黄色",
+          checked: false
+        },
+        {
+          color: '#925800',
+          name: "褐色",
+          checked: false
+        },
+        {
+          color: 'blue',
+          name: "蓝色",
+          checked: false
+        },
+        {
+          color: '#9c0202',
+          name: "酒红色",
+          checked: false
+        },
+        {
+          color: '#fff',
+          name: "透明",
+          checked: false
+        },
+        {
+          color: 'green',
+          name: "绿色",
+          checked: false
+        },
+        {
+          color: '#38f',
+          name: "天蓝色",
+          checked: false
+        },
+        {
+          color: '#000',
+          name: "黑色",
+          checked: false
+        },
+      ],
+      tableData: [{
+        date: '可调节款，竹纤维，辛迪粉',
+        name: '59.00',
+        address: '100'
+      }, {
+        date: '可调节款，乳胶填充，辛迪粉',
+        name: '98.00',
+        address: '100'
+      }, {
+        date: '可调节款，竹纤维，夕雾绿',
+        name: '66.00',
+        address: '100'
+      }, {
+        date: '可调节款，竹纤维，辛迪粉',
+        name: '59.00',
+        address: '100'
+      }, {
+        date: '可调节款，竹纤维，夕雾绿',
+        name: '66.00',
+        address: '100'
+      }, {
+        date: '可调节款，竹纤维，夕雾绿',
+        name: '66.00',
+        address: '100'
+      }, {
+        date: '可调节款，乳胶填充，辛迪粉',
+        name: '98.00',
+        address: '100'
+      }, {
+        date: '可调节款，竹纤维，辛迪粉',
+        name: '59.00',
+        address: '100'
+      }]
     }
   },
   mounted() {
@@ -120,7 +260,8 @@ export default {
   display: inline-block;
   width: 100px;
   height: 30px;
-  text-align: center;
+  text-align: left;
+  padding-left: 5px;
   line-height: 30px;
   font-size: 12px;
   border: 1px solid #ccc;
@@ -128,6 +269,7 @@ export default {
 
 .box {
   display: flex;
+  margin: 2px 0;
   flex-wrap: wrap;
 }
 
@@ -148,6 +290,7 @@ export default {
   width: 100%;
   height: 350px;
   background: #fafafa;
+  padding-left: 10px;
   margin-bottom: 20px;
 }
 
@@ -163,17 +306,36 @@ export default {
   line-height: 32px;
   background: #38f;
   color: #fff;
+  position: absolute;
+  right: 11%;
+  top: 0;
   border-radius: 5px;
   margin-bottom: 10px;
 }
 
+.innerFormArea {
+  width: 90%;
+  padding: 10px 20px 20px 0;
+  background-color: rgb(252, 252, 252);
+  border: 1px solid rgb(238, 238, 238);
+}
+
+.tips {
+  color: rgb(174, 161, 158);
+  width: 100%;
+  height: 50px;
+  position: relative;
+}
+
 .content {
   background-color: #fff;
-  margin-top: 20px;
+  padding-top: 20px;
 }
 
 .title {
-  padding: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #fff;
   border-bottom: 1px solid #ccc;
 }
 </style>

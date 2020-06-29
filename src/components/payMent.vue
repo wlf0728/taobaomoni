@@ -6,25 +6,20 @@
             </el-col>
         </el-row>
         <el-row class="content">
-            <el-col :span="2">
-                <div>&nbsp</div>
-            </el-col>
-            <el-col :span="22">
-                <el-form>
-                    <el-form-item label="付款方式">
-                        <el-radio-group v-model="form.resource">
-                            <el-radio label="一口价（普通交易模式）"></el-radio>
-                            <el-radio label="预售模式"></el-radio>
-                        </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="库存计数">
-                        <el-radio-group v-model="form.resource">
-                            <el-radio label="买家拍下减库存"></el-radio>
-                            <el-radio label="买家付款减库存"></el-radio>
-                        </el-radio-group>
-                    </el-form-item>
-                </el-form>
-            </el-col>
+            <el-form label-width="170px">
+                <el-form-item label="付款方式" required>
+                    <el-radio-group v-model="form.resource">
+                        <el-radio label="一口价（普通交易模式）"></el-radio>
+                        <el-radio label="预售模式"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="库存计数" required>
+                    <el-radio-group v-model="form.resource">
+                        <el-radio label="买家拍下减库存"></el-radio>
+                        <el-radio label="买家付款减库存"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+            </el-form>
         </el-row>
     </div>
 </template>
@@ -62,11 +57,13 @@ export default {
 <style scoped>
 .content {
     background-color: #fff;
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 .title {
     padding: 10px;
+    margin-top: 20px;
+    background-color: #fff;
     border-bottom: 1px solid #ccc;
 }
 </style>
