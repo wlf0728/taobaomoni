@@ -6,6 +6,11 @@
                 <el-form label-width="170px">
                     <el-form-item label="电脑端宝贝图片" required>
                         <div class="tips">宝贝主图大小不能超过3MB；700*700以上图片上传后宝贝详情页自动提供放大镜功能。</div>
+                        <el-upload
+                            action="https://jsonplaceholder.typicode.com/posts/"
+                            list-type="picture-card">
+                            <i class="el-icon-plus"></i>
+                        </el-upload>
                         <div class="tips">商品图片中的一张设为淘宝直通车推广创意时，更新此图片会同步至淘宝直通车创意。</div>
                     </el-form-item>
                     <el-form-item label="主图视频比例">
