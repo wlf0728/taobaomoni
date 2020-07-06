@@ -1,5 +1,5 @@
-let baseUrl="http://epc.dian19.com:17888";
+let baseUrl="http://182.92.226.253:8080/";
 
 export default {
-    
+    baseUrl:baseUrl
 }

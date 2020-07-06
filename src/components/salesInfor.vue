@@ -16,7 +16,7 @@
                   <span class="wrap_color" :style="{ background: item.color}"></span>
                   <span class="wrap_text">{{item.name}}</span>
                   <span class="wrap_btn"></span>
-                  <span style="color:#38f;font-size:12px;">选择图片</span>
+                  <span style="color:#38f;font-size:12px;cursor:pointer">选择图片</span>
                 </el-col>
               </el-row>
             </div>

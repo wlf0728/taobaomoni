@@ -61,9 +61,7 @@ export default {
     }
   },
   mounted() {
-    this.$get('http://epc.dian19.com:17888/monitorapi/monitorCameraCompany/primarylist', {}).then((res) => {
-
-    })
+      
   },
   methods: {
     
