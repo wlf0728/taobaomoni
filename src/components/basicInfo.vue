@@ -37,14 +37,14 @@
                                 <el-col :span="12">
                                     <el-form-item label="一级分类" required>
                                         <el-select v-model="basicParam.oneCategoryId" placeholder="请选择一级分类" class="allWidth" @change="getSecondCator">
-                                            <el-option v-for="item in firstCatorOption" :key="item.supplierId" :label="item.supplierName" :value="item.supplierId"></el-option>
+                                            <el-option v-for="item in firstCatorOption" :key="item.oneCategoryId" :label="item.name" :value="item.oneCategoryId"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="二级分类">
                                         <el-select v-model="basicParam.twoCategoryId" placeholder="请选择二级分类" class="allWidth">
-                                            <el-option v-for="item in secondCatorOption" :key="item.supplierId" :label="item.supplierName" :value="item.supplierId"></el-option>
+                                            <el-option v-for="item in secondCatorOption" :key="item.supplierId" :label="item.name" :value="item.supplierId"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
@@ -157,7 +157,7 @@
                     </el-form-item>
                       <el-form-item label="一级分类" prop="oneCategoryId">
                         <el-select v-model="supplierParam.oneCategoryId" placeholder="请选择一级分类" class="allWidth">
-                            <el-option v-for="item in firstCatorOption" :key="item.supplierId" :label="item.supplierName" :value="item.supplierId"></el-option>
+                            <el-option v-for="item in firstCatorOption" :key="item.oneCategoryId" :label="item.name" :value="item.oneCategoryId"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="图片上传" prop="supplierLogo">
