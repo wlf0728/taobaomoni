@@ -58,21 +58,28 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
+                                    <el-form-item label="国条码">
+                                        <el-select v-model="value" placeholder="请选择" class="allWidth">
+                                            <el-option label="item.label" value="item.value"></el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <!-- <el-col :span="12">
                                     <el-form-item label="适用阶段">
                                         <span class="tips">当前最多只能设置3个值</span>
                                     </el-form-item>
-                                </el-col>
+                                </el-col> -->
                             </el-row>
                             <el-row class="marginBottom">
                                 <el-col :span="12">
-                                    <el-form-item label="商品条形码">
+                                    <el-form-item label="国条码">
                                         <el-select v-model="value" placeholder="请选择" class="allWidth">
                                             <el-option label="item.label" value="item.value"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row class="marginBottom">
+                            <!-- <el-row class="marginBottom">
                                 <el-col :span="12">
                                     <el-form-item label="货号">
                                         <el-select v-model="value" placeholder="请选择" class="allWidth">
@@ -80,14 +87,14 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                            </el-row>
+                            </el-row> -->
                         </div>
                     </el-form-item>
-                    <el-form-item label="采购地" required>
+                    <!-- <el-form-item label="采购地" required>
                         <el-radio-group v-model="value">
                             <el-radio :label="3">国内</el-radio>
                         </el-radio-group>
-                    </el-form-item>
+                    </el-form-item> -->
                 </el-form>
             </div>
             <div class="bottom">
@@ -329,6 +336,7 @@ export default {
                     _this.$post(url.baseUrl + 'prod-api/shangpinApp/info/add',_this.brandParam).then(res =>{
                         if(res.data.code == 200){
                             _this.getBrandOption()
+                            _this.brandCancel()
                         }
                     })
                 }
@@ -347,6 +355,7 @@ export default {
                     _this.$post(url.baseUrl + 'prod-api/supplierApp/info/add',_this.supplierParam).then(res =>{
                         if(res.data.code == 200){
                             _this.getSuplierOption()
+                            _this.supplierCancel()
                         }
                     })
                 }
