@@ -321,7 +321,7 @@ export default {
         getSecondCator(){
             this.basicParam.twoCategoryId = ''
             if(this.basicParam.oneCategoryId){
-                this.$get(url.baseUrl + 'prod-api/productInfoTwoApp/type/list',{oneCategoryId:this.basicParam.oneCategoryId}).then(res =>{
+                this.$get(url.baseUrl + 'prod-api/productInfoTwoApp/type/list/' +this.basicParam.oneCategoryId ).then(res =>{
                     if(res.data.code == 200){
                         this.secondCatorOption= res.data.rows
                     }
