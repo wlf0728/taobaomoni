@@ -6,18 +6,22 @@
         <div class="basicPanel">
             <div class="title">基础信息</div>
             <div class="content">
-                <el-form label-width="170px">
-                    <el-form-item label="商品名称" required>
+                <el-form label-width="170px" :model="basicParam" :rules="rules" ref="basicParam">
+                    <el-form-item label="商品名称" prop="productName">
                         <el-input type="text" placeholder="请输入商品名称" v-model="basicParam.productName" maxlength="60" show-word-limit style="width:75%">
                         </el-input>
                         <div class="tips">标题和描述关键词是否违规自检工具：<span class="blueTip">商品合规工具</span></div>
+                    </el-form-item>
+                    <el-form-item label="商品编码" prop="productCore">
+                        <el-input type="text" placeholder="请输入商品名称" v-model="basicParam.productCore" style="width:75%">
+                        </el-input>
                     </el-form-item>
                     <el-form-item label="类目属性">
                         <div class="tips">错误填写宝贝属性，可能会引起宝贝下架或者搜索量减少，影响您的正常销售，请认真准确填写！</div>
                         <div class="innerFormArea">
                             <el-row class="marginBottom">
                                 <el-col :span="12">
-                                    <el-form-item label="品牌" required>
+                                    <el-form-item label="品牌" prop="brandId">
                                         <el-select v-model="basicParam.brandId" placeholder="请选择品牌" class="allWidth">
                                             <el-option v-for="item in brandOption" :key="item.brandId" :label="item.brandName" :value="item.brandId"></el-option>
                                         </el-select>
@@ -25,7 +29,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
-                                    <el-form-item label="供应商">
+                                    <el-form-item label="供应商" prop="supplierId">
                                         <el-select v-model="basicParam.supplierId" placeholder="请选择供应商" class="allWidth">
                                             <el-option v-for="item in supplierOption" :key="item.supplierId" :label="item.supplierName" :value="item.supplierId"></el-option>
                                         </el-select>
@@ -35,47 +39,38 @@
                             </el-row>
                             <el-row class="marginBottom">
                                 <el-col :span="12">
-                                    <el-form-item label="一级分类" required>
+                                    <el-form-item label="一级分类" prop="oneCategoryId">
                                         <el-select v-model="basicParam.oneCategoryId" placeholder="请选择一级分类" class="allWidth" @change="getSecondCator">
                                             <el-option v-for="item in firstCatorOption" :key="item.oneCategoryId" :label="item.name" :value="item.oneCategoryId"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
-                                    <el-form-item label="二级分类">
-                                        <el-select v-model="basicParam.twoCategoryId" placeholder="请选择二级分类" class="allWidth">
-                                            <el-option v-for="item in secondCatorOption" :key="item.supplierId" :label="item.name" :value="item.supplierId"></el-option>
+                                    <el-form-item label="二级分类" prop="twoCategoryId">
+                                        <el-select v-model="basicParam.twoCategoryId" placeholder="请选择二级分类" class="allWidth" @change="getThirdCator">
+                                            <el-option v-for="item in secondCatorOption" :key="item.twoCategoryId" :label="item.name" :value="item.twoCategoryId"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row class="marginBottom">
                                 <el-col :span="12">
-                                    <el-form-item label="三级分类">
-                                        <el-select v-model="value" placeholder="请选择" class="allWidth">
-                                            <el-option label="item.label" value="item.value"></el-option>
+                                    <el-form-item label="三级分类" prop="threeCategoryId">
+                                        <el-select v-model="basicParam.threeCategoryId" placeholder="请选择" class="allWidth">
+                                            <el-option v-for="item in thirdCatorOption" :key="item.threeCategoryId" :label="item.name" :value="item.threeCategoryId"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
-                                    <el-form-item label="国条码">
-                                        <el-select v-model="value" placeholder="请选择" class="allWidth">
-                                            <el-option label="item.label" value="item.value"></el-option>
-                                        </el-select>
+                                    <el-form-item label="国条码" prop="barCode">
+                                        <el-input v-model="basicParam.barCode" placeholder="请输入" class="allWidth"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <!-- <el-col :span="12">
-                                    <el-form-item label="适用阶段">
-                                        <span class="tips">当前最多只能设置3个值</span>
-                                    </el-form-item>
-                                </el-col> -->
                             </el-row>
-                            <el-row class="marginBottom">
-                                <el-col :span="12">
-                                    <el-form-item label="国条码">
-                                        <el-select v-model="value" placeholder="请选择" class="allWidth">
-                                            <el-option label="item.label" value="item.value"></el-option>
-                                        </el-select>
+                            <el-row class="marginBottom" prop="descript">
+                                <el-col :span="24">
+                                    <el-form-item label="商品描述" prop="descript">
+                                        <el-input type="textarea" v-model="basicParam.descript" placeholder="请输入" class="allWidth"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -90,15 +85,11 @@
                             </el-row> -->
                         </div>
                     </el-form-item>
-                    <!-- <el-form-item label="采购地" required>
-                        <el-radio-group v-model="value">
-                            <el-radio :label="3">国内</el-radio>
-                        </el-radio-group>
-                    </el-form-item> -->
                 </el-form>
-            </div>
-            <div class="bottom">
-
+                <div class="buttonPannel">
+                    <el-button>取消</el-button>
+                    <el-button type="primary" @click="save">保存</el-button>
+                </div>
             </div>
         </div>
         <el-dialog :visible.sync="brandDialogVisible" width="30%" title="添加品牌" @close="brandCancel">
@@ -117,8 +108,8 @@
                         </el-input>
                     </el-form-item>
                     <el-form-item label="品牌Logo" prop="brandLogo">
-                        <el-upload  action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false">
-                            <img v-if="value" :src="value" class="avatar">
+                        <el-upload ref="brandUpload" :show-file-list="false" name="avatarfile" :action="`${url.baseUrl}shangpinApp/pic/common/upload`" :on-success="uploadBrandLogo">
+                            <img v-if="brandParam.brandLogo" :src="brandParam.brandLogo" class="avatar">
                             <div class="avatar-uploader" v-else>
                                 <i class="el-icon-plus avatar-uploader-icon"></i>
                             </div>
@@ -168,8 +159,8 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="图片上传" prop="supplierLogo">
-                        <el-upload  action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false">
-                            <img v-if="value" :src="value" class="avatar">
+                        <el-upload ref="supplierUpload" :action="`${url.baseUrl}shangpinApp/pic/common/upload`" :show-file-list="false" :on-success="uploadSupplierPic">
+                            <img v-if="supplierParam.supplierLogo" :src="supplierParam.supplierLogo" class="avatar">
                             <div class="avatar-uploader" v-else>
                                 <i class="el-icon-plus avatar-uploader-icon"></i>
                             </div>
@@ -217,17 +208,23 @@ export default {
     name: 'basicInfo',
     data() {
         return {
+            url:url,
             basicParam:{
                 productName:'',
+                productCore:'',
                 brandId:'',
                 supplierId:'',
                 oneCategoryId:'',
                 twoCategoryId:'',
+                threeCategoryId:'',
+                barCode:'',
+                descript:'',
             },
             brandOption:[],//品牌集合
             supplierOption:[],//供应商集合
             firstCatorOption:[],//一级分类集合
             secondCatorOption:[],//二级分类集合
+            thirdCatorOption:[],//三级分类
             brandDialogVisible:false,//品牌对话框
             suplierDialogVisible:false,//供应商对话框
             brandParam:{//品牌表单
@@ -252,9 +249,29 @@ export default {
                 address: '',
                 supplierStatus: '',
             },
-            value:'',
             rules:{
                 //基础信息部分
+                productCore: [
+                    { required: true, message: "商品编码不能为空", trigger: "blur" }
+                ],
+                productName: [
+                    { required: true, message: "商品名称不能为空", trigger: "blur" }
+                ],
+                barCode: [
+                    { required: true, message: "国条码不能为空", trigger: "blur" }
+                ],
+                brandId: [
+                    { required: true, message: "品牌不能为空", trigger: "blur" }
+                ],
+                oneCategoryId: [
+                    { required: true, message: "一级分类不能为空", trigger: "blur" }
+                ],
+                twoCategoryId: [
+                    { required: true, message: "二级分类不能为空", trigger: "blur" }
+                ],
+                supplierId: [
+                    { required: true, message: "商品的供应商不能为空", trigger: "blur" }
+                ],
                 //品牌部分
                 brandName:[
                     { required: true, message: '请输入品牌名称', trigger: 'blur' },
@@ -293,6 +310,19 @@ export default {
         this.getFirstCator()
     },
     methods: {
+        //保存 
+        save(){
+            let _this = this
+            this.$refs.basicParam.validate(valid => {
+                if(valid){
+                    _this.$post(url.baseUrl + 'prod-api/shangpinApp/commodity/add',_this.basicParam).then(res =>{
+                        if(res.data.code == 200){
+                            
+                        }
+                    })
+                }
+            })
+        },
         //查品牌
         getBrandOption(){
             this.$post(url.baseUrl + 'prod-api/shangpinApp/info/list',{}).then(res =>{
@@ -328,6 +358,23 @@ export default {
                 })
             }
         },
+        //查3级分类
+        getThirdCator(){
+            this.basicParam.threeCategoryId = ''
+            if(this.basicParam.twoCategoryId){
+                this.$post(url.baseUrl + 'prod-api/productInfoThreeApp/type/list',{twoCategoryId:this.basicParam.twoCategoryId} ).then(res =>{
+                    if(res.data.code == 200){
+                        this.thirdCatorOption= res.data.rows
+                    }
+                })
+            }
+        },
+        //品牌logo上传
+        uploadBrandLogo(res, file, fileList){
+            if(res.data.code == 200){
+                this.brandParam.brandLogo = res.data.url
+            }
+        },
         //品牌提交
         brandSubmit(){
             let _this = this
@@ -344,8 +391,15 @@ export default {
         },
         //品牌取消
         brandCancel(){
+            this.$refs.brandUpload.clearFiles()
             this.$refs.brandParam.resetFields()
             this.brandDialogVisible = false
+        },
+        //供应商logo上传
+        uploadSupplierPic(res, file, fileList){
+            if(res.data.code == 200){
+                this.supplierParam.supplierLogo = res.data.url
+            }
         },
         //供应商提交
         supplierSubmit(){
@@ -363,6 +417,7 @@ export default {
         },
         //供应商取消
         supplierCancel(){
+            this.$refs.supplierUpload.clearFiles()
             this.$refs.supplierParam.resetFields()
             this.suplierDialogVisible = false
         }
@@ -457,5 +512,11 @@ export default {
     width: 178px;
     height: 178px;
     display: block;
+}
+.buttonPannel{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
 }
 </style>
