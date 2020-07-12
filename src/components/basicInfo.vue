@@ -85,9 +85,25 @@
                             </el-row> -->
                         </div>
                     </el-form-item>
+                    <el-form-item label="电脑端描述">
+                        <vue-ueditor-wrap 
+                            ref="ueditor" 
+                            v-model="basicParam.productDesc" 
+                            :destroy="false" 
+                            :config="config">
+                        </vue-ueditor-wrap>
+                    </el-form-item>
+                    <el-form-item label="手机端描述">
+                        <vue-ueditor-wrap 
+                            ref="ueditor" 
+                            v-model="basicParam.productDescApp" 
+                            :destroy="false" 
+                            :config="config">
+                        </vue-ueditor-wrap>
+                    </el-form-item>
                 </el-form>
                 <div class="buttonPannel">
-                    <el-button>取消</el-button>
+                    <el-button @click="cancel">取消</el-button>
                     <el-button type="primary" @click="save">保存</el-button>
                 </div>
             </div>
@@ -108,7 +124,7 @@
                         </el-input>
                     </el-form-item>
                     <el-form-item label="品牌Logo" prop="brandLogo">
-                        <el-upload ref="brandUpload" :show-file-list="false" name="avatarfile" :action="`${url.baseUrl}shangpinApp/pic/common/upload`" :on-success="uploadBrandLogo">
+                        <el-upload ref="brandUpload" :show-file-list="false" name="avatarfile" :action="`${url.baseUrl}prod-api/shangpinApp/pic/common/upload`" :on-success="uploadBrandLogo">
                             <img v-if="brandParam.brandLogo" :src="brandParam.brandLogo" class="avatar">
                             <div class="avatar-uploader" v-else>
                                 <i class="el-icon-plus avatar-uploader-icon"></i>
@@ -159,7 +175,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="图片上传" prop="supplierLogo">
-                        <el-upload ref="supplierUpload" :action="`${url.baseUrl}shangpinApp/pic/common/upload`" :show-file-list="false" :on-success="uploadSupplierPic">
+                        <el-upload ref="supplierUpload" :action="`${url.baseUrl}prod-api/shangpinApp/pic/common/upload`" :show-file-list="false" :on-success="uploadSupplierPic">
                             <img v-if="supplierParam.supplierLogo" :src="supplierParam.supplierLogo" class="avatar">
                             <div class="avatar-uploader" v-else>
                                 <i class="el-icon-plus avatar-uploader-icon"></i>
@@ -204,11 +220,23 @@
 
 <script>
 import  url from '../utils/api'
+import VueUeditorWrap from 'vue-ueditor-wrap'
 export default {
     name: 'basicInfo',
+    components:{
+        VueUeditorWrap
+    },
     data() {
         return {
             url:url,
+            config: {
+                serverUrl: '', // 如果需要上传功能,找后端小伙伴要服务器接口地址
+                UEDITOR_HOME_URL: '/static/UEditor/', //资源路径
+                autoHeightEnabled: false,   // 编辑器不自动被内容撑高 
+                // initialFrameHeight: 300,    // 初始容器高度
+                initialFrameWidth: '90%',  // 初始容器宽度
+                enableAutoSave: false // 关闭自动保存
+            },
             basicParam:{
                 productName:'',
                 productCore:'',
@@ -219,6 +247,8 @@ export default {
                 threeCategoryId:'',
                 barCode:'',
                 descript:'',
+                productDesc:'',
+                productDescApp:''
             },
             brandOption:[],//品牌集合
             supplierOption:[],//供应商集合
@@ -310,14 +340,32 @@ export default {
         this.getFirstCator()
     },
     methods: {
+        cancel(){
+            this.$refs.basicParam.resetFields()
+        },
         //保存 
         save(){
             let _this = this
             this.$refs.basicParam.validate(valid => {
                 if(valid){
-                    _this.$post(url.baseUrl + 'prod-api/shangpinApp/commodity/add',_this.basicParam).then(res =>{
+                    let tempurl = ''
+                    if(_this.basicParam.productId){
+                        tempurl = 'prod-api/shangpinApp/commodity/add'
+                    }else{
+                        tempurl = 'prod-api/shangpinApp/commodity/update'
+                    }
+                    _this.$post(url.baseUrl + tempurl,_this.basicParam).then(res =>{
                         if(res.data.code == 200){
-                            
+                            _this.basicParam.productId = res.data.data
+                            _this.$message({
+                                message: '保存成功',
+                                type: 'success'
+                            })
+                        }else{
+                            _this.$message({
+                                message: res.message,
+                                type: 'error'
+                            })
                         }
                     })
                 }
@@ -372,7 +420,7 @@ export default {
         //品牌logo上传
         uploadBrandLogo(res, file, fileList){
             if(res.data.code == 200){
-                this.brandParam.brandLogo = res.data.url
+                this.brandParam.brandLogo = res.url
             }
         },
         //品牌提交
@@ -382,8 +430,17 @@ export default {
                 if(valid){
                     _this.$post(url.baseUrl + 'prod-api/shangpinApp/info/add',_this.brandParam).then(res =>{
                         if(res.data.code == 200){
+                            _this.$message({
+                                message: '保存成功',
+                                type: 'success'
+                            })
                             _this.getBrandOption()
                             _this.brandCancel()
+                        }else{
+                            _this.$message({
+                                message: res.message,
+                                type: 'error'
+                            })
                         }
                     })
                 }
@@ -398,7 +455,7 @@ export default {
         //供应商logo上传
         uploadSupplierPic(res, file, fileList){
             if(res.data.code == 200){
-                this.supplierParam.supplierLogo = res.data.url
+                this.supplierParam.supplierLogo = res.url
             }
         },
         //供应商提交
@@ -408,8 +465,17 @@ export default {
                 if(valid){
                     _this.$post(url.baseUrl + 'prod-api/supplierApp/info/add',_this.supplierParam).then(res =>{
                         if(res.data.code == 200){
+                            _this.$message({
+                                message: '保存成功',
+                                type: 'success'
+                            })
                             _this.getSuplierOption()
                             _this.supplierCancel()
+                        }else{
+                            _this.$message({
+                                message: res.message,
+                                type: 'error'
+                            })
                         }
                     })
                 }
