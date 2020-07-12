@@ -26,12 +26,12 @@
     </el-row>
     <el-row>
       <el-col :span="14" :offset="5">
-        <basicInfo v-if="activeTab == 1"></basicInfo>
-        <sales-infor v-if="activeTab == 2"></sales-infor>
-        <videoInfo v-if="activeTab == 3"></videoInfo>
-        <pay-ment v-if="activeTab == 4"></pay-ment>
-        <logi-stics v-if="activeTab == 5"></logi-stics>
-        <after-sale v-if="activeTab == 6"></after-sale>
+        <basicInfo v-show="activeTab == 1"></basicInfo>
+        <sales-infor v-show="activeTab == 2"></sales-infor>
+        <videoInfo v-show="activeTab == 3"></videoInfo>
+        <pay-ment v-show="activeTab == 4"></pay-ment>
+        <logi-stics v-show="activeTab == 5"></logi-stics>
+        <after-sale v-show="activeTab == 6"></after-sale>
       </el-col>
     </el-row>
   </div>
