@@ -350,9 +350,9 @@ export default {
                 if(valid){
                     let tempurl = ''
                     if(_this.basicParam.productId){
-                        tempurl = 'prod-api/shangpinApp/commodity/add'
-                    }else{
                         tempurl = 'prod-api/shangpinApp/commodity/update'
+                    }else{
+                        tempurl = 'prod-api/shangpinApp/commodity/add'
                     }
                     _this.$post(url.baseUrl + tempurl,_this.basicParam).then(res =>{
                         if(res.data.code == 200){
@@ -361,6 +361,7 @@ export default {
                                 message: '保存成功',
                                 type: 'success'
                             })
+                            _this.$root.Bus.$emit('sendProductId',res.data.data)
                         }else{
                             _this.$message({
                                 message: res.message,

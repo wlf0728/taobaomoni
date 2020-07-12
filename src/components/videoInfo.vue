@@ -140,7 +140,10 @@ export default {
         }
     },
     mounted() {
-
+        let _this = this
+        this.$root.Bus.$on('sendProductId',res =>{
+            _this.formParam.productId = res
+        })
     },
     methods: {
         mainPicUpload(res, file, fileList){
@@ -157,23 +160,30 @@ export default {
         },
         save(){
             let _this = this
-            this.$refs.formParam.validate(valid => {
-                if(valid){
-                    _this.$post(url.baseUrl + 'prod-api/shangpinApp/pic/update',_this.formParam).then(res =>{
-                        if(res.data.code == 200){
-                            _this.$message({
-                                message: '保存成功',
-                                type: 'success'
-                            })
-                        }else{
-                            _this.$message({
-                                message: res.message,
-                                type: 'error'
-                            })
-                        }
-                    })
-                }
-            })
+            if(this.formParam.productId){
+                this.$refs.formParam.validate(valid => {
+                    if(valid){
+                        _this.$post(url.baseUrl + 'prod-api/shangpinApp/pic/update',_this.formParam).then(res =>{
+                            if(res.data.code == 200){
+                                _this.$message({
+                                    message: '保存成功',
+                                    type: 'success'
+                                })
+                            }else{
+                                _this.$message({
+                                    message: res.message,
+                                    type: 'error'
+                                })
+                            }
+                        })
+                    }
+                })
+            }else{
+                this.$message({
+                    message: '请先保存商品基本信息',
+                    type: 'error'
+                })
+            }
         },
         cancel(){
             this.$refs.mainPicUpload.clearFiles()
