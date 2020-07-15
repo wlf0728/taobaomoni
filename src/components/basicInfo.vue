@@ -47,13 +47,13 @@
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="二级分类" prop="twoCategoryId">
-                                        <el-select v-model="basicParam.twoCategoryId" placeholder="请选择二级分类" class="allWidth" @change="getThirdCator">
+                                        <el-select v-model="basicParam.twoCategoryId" placeholder="请选择二级分类" class="allWidth">
                                             <el-option v-for="item in secondCatorOption" :key="item.twoCategoryId" :label="item.name" :value="item.twoCategoryId"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row class="marginBottom">
+                            <!-- <el-row class="marginBottom">
                                 <el-col :span="12">
                                     <el-form-item label="三级分类" prop="threeCategoryId">
                                         <el-select v-model="basicParam.threeCategoryId" placeholder="请选择" class="allWidth">
@@ -66,7 +66,7 @@
                                         <el-input v-model="basicParam.barCode" placeholder="请输入" class="allWidth"></el-input>
                                     </el-form-item>
                                 </el-col>
-                            </el-row>
+                            </el-row> -->
                             <el-row class="marginBottom" prop="descript">
                                 <el-col :span="24">
                                     <el-form-item label="商品描述" prop="descript">
@@ -244,8 +244,8 @@ export default {
                 supplierId:'',
                 oneCategoryId:'',
                 twoCategoryId:'',
-                threeCategoryId:'',
-                barCode:'',
+                // threeCategoryId:'',
+                // barCode:'',
                 descript:'',
                 productDesc:'',
                 productDescApp:''
@@ -254,7 +254,7 @@ export default {
             supplierOption:[],//供应商集合
             firstCatorOption:[],//一级分类集合
             secondCatorOption:[],//二级分类集合
-            thirdCatorOption:[],//三级分类
+            // thirdCatorOption:[],//三级分类
             brandDialogVisible:false,//品牌对话框
             suplierDialogVisible:false,//供应商对话框
             brandParam:{//品牌表单
@@ -287,9 +287,9 @@ export default {
                 productName: [
                     { required: true, message: "商品名称不能为空", trigger: "blur" }
                 ],
-                barCode: [
-                    { required: true, message: "国条码不能为空", trigger: "blur" }
-                ],
+                // barCode: [
+                //     { required: true, message: "国条码不能为空", trigger: "blur" }
+                // ],
                 brandId: [
                     { required: true, message: "品牌不能为空", trigger: "blur" }
                 ],
@@ -407,17 +407,17 @@ export default {
                 })
             }
         },
-        //查3级分类
-        getThirdCator(){
-            this.basicParam.threeCategoryId = ''
-            if(this.basicParam.twoCategoryId){
-                this.$post(url.baseUrl + 'prod-api/productInfoThreeApp/type/list',{twoCategoryId:this.basicParam.twoCategoryId} ).then(res =>{
-                    if(res.data.code == 200){
-                        this.thirdCatorOption= res.data.rows
-                    }
-                })
-            }
-        },
+        // //查3级分类
+        // getThirdCator(){
+        //     this.basicParam.threeCategoryId = ''
+        //     if(this.basicParam.twoCategoryId){
+        //         this.$post(url.baseUrl + 'prod-api/productInfoThreeApp/type/list',{twoCategoryId:this.basicParam.twoCategoryId} ).then(res =>{
+        //             if(res.data.code == 200){
+        //                 this.thirdCatorOption= res.data.rows
+        //             }
+        //         })
+        //     }
+        // },
         //品牌logo上传
         uploadBrandLogo(res, file, fileList){
             if(res.data.code == 200){
