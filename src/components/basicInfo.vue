@@ -239,6 +239,7 @@ export default {
                 enableAutoSave: false // 关闭自动保存
             },
             basicParam:{
+                productId:'',
                 productName:'',
                 productCore:'',
                 brandId:'',
@@ -357,12 +358,14 @@ export default {
                     }
                     _this.$post(url.baseUrl + tempurl,_this.basicParam).then(res =>{
                         if(res.data.code == 200){
-                            _this.basicParam.productId = res.data.data
                             _this.$message({
                                 message: '保存成功',
                                 type: 'success'
                             })
-                            Bus.$emit('sendProductId',res.data.data)
+                            if(_this.basicParam.productId == ''){
+                                _this.basicParam.productId = res.data.data
+                                Bus.$emit('sendProductId',res.data.data)
+                            }
                             Bus.$emit('sendBasicInfo',_this.basicParam)
                         }else{
                             _this.$message({
