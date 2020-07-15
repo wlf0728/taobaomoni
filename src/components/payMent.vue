@@ -20,6 +20,10 @@
                     </el-radio-group>
                 </el-form-item>
             </el-form>
+            <div class="buttonPannel">
+                <el-button @click="cancel">取消</el-button>
+                <el-button type="primary" @click="save">保存</el-button>
+            </div>
         </el-row>
     </div>
 </template>
@@ -48,17 +52,49 @@ export default {
         handleClick: function(tab, event) {
             console.log(tab, event);
         },
-
+        save() {
+            let _this = this
+            this.$refs.salesInfor.validate(valid => {
+                if (valid) {
+                    _this.$post(url.baseUrl + 'prod-api/supplierApp/info/add', _this.form).then(res => {
+                        if (res.data.code == 200) {
+                            _this.$message({
+                                message: '保存成功',
+                                type: 'success'
+                            })
+                            _this.getSuplierOption()
+                            _this.supplierCancel()
+                        } else {
+                            _this.$message({
+                                message: res.message,
+                                type: 'error'
+                            })
+                        }
+                    })
+                }
+            })
+        },
+        cancel() {
+            this.$refs.form.resetFields()
+        },
     }
 
 }
 </script>
 
 <style scoped>
+.buttonPannel {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
 .content {
     background-color: #fff;
     padding-top: 20px;
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+    padding-bottom: 20px;
 }
 
 .title {
