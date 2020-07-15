@@ -164,7 +164,7 @@ export default {
             if(this.formParam.productId){
                 this.$refs.formParam.validate(valid => {
                     if(valid){
-                        _this.$post(url.baseUrl + 'prod-api/shangpinApp/pic/update',_this.formParam).then(res =>{
+                        _this.$post(url.baseUrl + 'prod-api/shangpinApp/pic/addAll',_this.formParam).then(res =>{
                             if(res.data.code == 200){
                                 _this.$message({
                                     message: '保存成功',
