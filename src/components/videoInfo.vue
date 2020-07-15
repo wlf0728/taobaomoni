@@ -107,6 +107,7 @@
 <script>
 import  url from '../utils/api'
 // import VueUeditorWrap from 'vue-ueditor-wrap'
+import Bus from '../assets/Bus'
 export default {
     name: 'basicInfo',
     // components:{
@@ -141,7 +142,7 @@ export default {
     },
     mounted() {
         let _this = this
-        this.$root.Bus.$on('sendProductId',res =>{
+        Bus.$on('sendProductId',res =>{
             _this.formParam.productId = res
         })
     },

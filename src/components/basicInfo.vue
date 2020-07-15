@@ -221,6 +221,7 @@
 <script>
 import  url from '../utils/api'
 import VueUeditorWrap from 'vue-ueditor-wrap'
+import Bus from '../assets/Bus'
 export default {
     name: 'basicInfo',
     components:{
@@ -361,7 +362,8 @@ export default {
                                 message: '保存成功',
                                 type: 'success'
                             })
-                            _this.$root.Bus.$emit('sendProductId',res.data.data)
+                            Bus.$emit('sendProductId',res.data.data)
+                            Bus.$emit('sendBasicInfo',_this.basicParam)
                         }else{
                             _this.$message({
                                 message: res.message,
