@@ -1,8 +1,8 @@
 <template>
     <div class="hello">
-        <div class="catogary">
+        <!-- <div class="catogary">
             <span class="catogaryText">当前类目：孕妇装/孕产妇用品/营养>>待产用品>>护腰枕</span><div class="changeCatagory">切换类目</div>
-        </div>
+        </div> -->
         <div class="basicPanel">
             <div class="title">基础信息</div>
             <div class="content">
