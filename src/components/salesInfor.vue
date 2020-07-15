@@ -8,20 +8,20 @@
     <div class="content">
       <el-form label-width="170px" :model="form" :rules="rules" ref="salesInfor">
         <!--<el-form-item label="颜色分类">
-                                        <div class="innerFormArea">
-                                          <div class="wrap">
-                                            <el-row>
-                                              <el-col :span="8" class="box" v-for="(item,index) in dataList" :key="index">
-                                                <el-checkbox :checked="item.checked" label="" name="type"></el-checkbox>
-                                                <span class="wrap_color" :style="{ background: item.color}"></span>
-                                                <span class="wrap_text">{{item.style+item.use+item.model}}</span>
-                                                <span class="wrap_btn"></span>
-                                                <span style="color:#38f;font-size:12px;cursor:pointer">选择图片</span>
-                                              </el-col>
-                                            </el-row>
+                                          <div class="innerFormArea">
+                                            <div class="wrap">
+                                              <el-row>
+                                                <el-col :span="8" class="box" v-for="(item,index) in dataList" :key="index">
+                                                  <el-checkbox :checked="item.checked" label="" name="type"></el-checkbox>
+                                                  <span class="wrap_color" :style="{ background: item.color}"></span>
+                                                  <span class="wrap_text">{{item.style+item.use+item.model}}</span>
+                                                  <span class="wrap_btn"></span>
+                                                  <span style="color:#38f;font-size:12px;cursor:pointer">选择图片</span>
+                                                </el-col>
+                                              </el-row>
+                                            </div>
                                           </div>
-                                        </div>
-                                      </el-form-item>-->
+                                        </el-form-item>-->
         <el-form-item label="三级分类">
           <div class="tips">在标题栏中输入或者选择内容可以进行筛选或批量填充
             <div class="tianchong" @click="DialogVisible">新增 </div>
@@ -175,9 +175,9 @@
               </el-input>
             </el-form-item>
             <!--<el-form-item label="特殊功能" prop="address">
-                          <el-input type="text" placeholder="请输入特殊功能" v-model="supplierParam.specialFunction" class="allWidth">
-                          </el-input>
-                        </el-form-item>-->
+                            <el-input type="text" placeholder="请输入特殊功能" v-model="supplierParam.specialFunction" class="allWidth">
+                            </el-input>
+                          </el-form-item>-->
             <el-form-item label="产地" v-show="oneCategoryId==1||oneCategoryId==2||oneCategoryId==3||oneCategoryId==6" prop="address">
               <el-input type="text" placeholder="请输入产地" v-model="supplierParam.origin" class="allWidth">
               </el-input>
@@ -407,7 +407,7 @@ export default {
       _this.supplierParam.oneCategoryId = res.oneCategoryId;
       _this.supplierParam.twoCategoryId = res.twoCategoryId;
       _this.supplierParam.threeCategoryId = res.threeCategoryId;
-      // _this.forceUpdate()
+      _this.loadList();
     })
   },
   methods: {
@@ -427,6 +427,7 @@ export default {
         if (res.data.code == 200) {
           this.dataList = res.data.rows
           this.tableData = res.data.rows
+          this.thirdCatorOption = res.data.rows
         }
       });
       // var a = [
@@ -444,7 +445,7 @@ export default {
     },
     DialogVisible() {
       // debugger
-      if (this.productId.length > 0) {
+      if (this.productId) {
         this.suplierDialogVisible = true;
       } else {
         this.$message({
