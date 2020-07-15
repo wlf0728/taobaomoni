@@ -53,6 +53,61 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
+
+                            <el-row class="marginBottom">
+                                <el-col :span="12">
+                                    <el-form-item label="商品重量" prop="weight">
+                                        <el-input v-model="basicParam.weight" class="allWidth" placeholder="请输入商品重量"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item label="商品长度" prop="length">
+                                        <el-input v-model="basicParam.length" class="allWidth" placeholder="请输入商品长度"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+
+                            <el-row class="marginBottom">
+                                <el-col :span="12">
+                                    <el-form-item label="商品高度" prop="height">
+                                        <el-input v-model="basicParam.height" class="allWidth" placeholder="请输入商品高度"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item label="商品宽度" prop="width">
+                                        <el-input v-model="basicParam.width" class="allWidth" placeholder="请输入商品宽度"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+
+                            <el-row class="marginBottom">
+                                <el-col :span="12">
+                                    <el-form-item label="生产日期" prop="productionDate">
+                                        <el-date-picker 
+                                            clearable 
+                                            size="small" 
+                                            class="allWidth"
+                                            v-model="basicParam.productionDate"
+                                            type="date"
+                                            value-format="yyyy-MM-dd"
+                                            placeholder="请选择生产日期">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item label="有效期" prop="shelfLife">
+                                        <el-date-picker 
+                                            clearable 
+                                            size="small" 
+                                            class="allWidth"
+                                            v-model="basicParam.shelfLife"
+                                            type="date"
+                                            value-format="yyyy-MM-dd"
+                                            placeholder="请选择生产日期">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
                             <!-- <el-row class="marginBottom">
                                 <el-col :span="12">
                                     <el-form-item label="三级分类" prop="threeCategoryId">
@@ -250,7 +305,13 @@ export default {
                 // barCode:'',
                 descript:'',
                 productDesc:'',
-                productDescApp:''
+                productDescApp:'',
+                weight:'',
+                length:'',
+                height:'',
+                width:'',
+                productionDate:'',
+                shelfLife:'',
             },
             brandOption:[],//品牌集合
             supplierOption:[],//供应商集合
@@ -332,6 +393,12 @@ export default {
                 ],
                 address:[
                     { required: true, message: '请输入地址', trigger: 'blur' },
+                ],
+                productionDate:[
+                    { required: true, message: '请选择生产日期', trigger: 'blur' },
+                ],
+                shelfLife:[
+                    { required: true, message: '请选择生产日期', trigger: 'blur' },
                 ],
             }
         }
