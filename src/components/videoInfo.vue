@@ -11,7 +11,7 @@
                             :action="`${url.baseUrl}prod-api/shangpinApp/pic/common/upload`"
                             :on-success="mainPicUpload"
                             name="avatarfile">
-                            <img v-if="formParam.mainPic" :src="formParam.mainPic" class="avatar">
+                            <img v-if="formParam.mainPic" :src="fullPic" class="avatar">
                             <div class="avatar-uploader" v-else>
                                 <i class="el-icon-plus avatar-uploader-icon"></i>
                             </div>
@@ -130,6 +130,7 @@ export default {
                 mainPic:'',
                 picList:[],
             },
+            fullPic:'',
             rule:{
                 mainPic: [
                     { required: true, message: "商品主图不能为空", trigger: "blur" }
@@ -149,13 +150,14 @@ export default {
     methods: {
         mainPicUpload(res, file, fileList){
             if(res.code == 200){
-                this.formParam.mainPic = res.url
+                this.formParam.mainPic = res.fileName
+                this.fullPic = res.url
             }
         },
         otherPicUpload(res, file, fileList){
             if(res.code == 200){
                 this.formParam.picList = fileList.map(item => {
-                    return item.response.url
+                    return item.response.fileName
                 })
             }
         },
@@ -170,6 +172,7 @@ export default {
                                     message: '保存成功',
                                     type: 'success'
                                 })
+                                top.location.href="http://182.92.226.253:8080/list/commodity"
                             }else{
                                 _this.$message({
                                     message: res.message,

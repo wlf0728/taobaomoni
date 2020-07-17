@@ -96,15 +96,7 @@
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="有效期" prop="shelfLife">
-                                        <el-date-picker 
-                                            clearable 
-                                            size="small" 
-                                            class="allWidth"
-                                            v-model="basicParam.shelfLife"
-                                            type="date"
-                                            value-format="yyyy-MM-dd"
-                                            placeholder="请选择生产日期">
-                                        </el-date-picker>
+                                        <el-input v-model="basicParam.shelfLife" class="allWidth" placeholder="请输入有效期"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -180,7 +172,7 @@
                     </el-form-item>
                     <el-form-item label="品牌Logo" prop="brandLogo">
                         <el-upload ref="brandUpload" :show-file-list="false" name="avatarfile" :action="`${url.baseUrl}prod-api/shangpinApp/pic/common/upload`" :on-success="uploadBrandLogo">
-                            <img v-if="brandParam.brandLogo" :src="brandParam.brandLogo" class="avatar">
+                            <img v-if="brandParam.brandLogo" :src="brandLogo" class="avatar">
                             <div class="avatar-uploader" v-else>
                                 <i class="el-icon-plus avatar-uploader-icon"></i>
                             </div>
@@ -230,8 +222,8 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="图片上传" prop="supplierLogo">
-                        <el-upload ref="supplierUpload" :action="`${url.baseUrl}prod-api/shangpinApp/pic/common/upload`" :show-file-list="false" :on-success="uploadSupplierPic">
-                            <img v-if="supplierParam.supplierLogo" :src="supplierParam.supplierLogo" class="avatar">
+                        <el-upload ref="supplierUpload" name="avatarfile" :action="`${url.baseUrl}prod-api/shangpinApp/pic/common/upload`" :show-file-list="false" :on-success="uploadSupplierPic">
+                            <img v-if="supplierParam.supplierLogo" :src="supplierLogo" class="avatar">
                             <div class="avatar-uploader" v-else>
                                 <i class="el-icon-plus avatar-uploader-icon"></i>
                             </div>
@@ -286,7 +278,8 @@ export default {
         return {
             url:url,
             config: {
-                serverUrl: '', // 如果需要上传功能,找后端小伙伴要服务器接口地址
+                serverUrl: `http://182.92.226.253:8080/prod-api/shangpinApp/pic/common/upload`, // 如果需要上传功能,找后端小伙伴要服务器接口地址
+                formName:'avatarfile',
                 UEDITOR_HOME_URL: '/static/UEditor/', //资源路径
                 autoHeightEnabled: false,   // 编辑器不自动被内容撑高 
                 // initialFrameHeight: 300,    // 初始容器高度
@@ -329,6 +322,7 @@ export default {
                 brandStatus:'',
                 brandOrder:''
             },
+            brandLogo:'',
             supplierParam: {//供应商表单
                 supplierCode:'',
                 supplierName:'',
@@ -342,6 +336,7 @@ export default {
                 address: '',
                 supplierStatus: '',
             },
+            supplierLogo:'',
             rules:{
                 //基础信息部分
                 productCore: [
@@ -434,6 +429,7 @@ export default {
                                 Bus.$emit('sendProductId',res.data.data)
                             }
                             Bus.$emit('sendBasicInfo',_this.basicParam)
+                            _this.$emit("OK",2)
                         }else{
                             _this.$message({
                                 message: res.message,
@@ -492,8 +488,9 @@ export default {
         // },
         //品牌logo上传
         uploadBrandLogo(res, file, fileList){
-            if(res.data.code == 200){
-                this.brandParam.brandLogo = res.url
+            if(res.code == 200){
+                this.brandParam.brandLogo = res.fileName
+                this.brandLogo = res.url
             }
         },
         //品牌提交
@@ -527,8 +524,9 @@ export default {
         },
         //供应商logo上传
         uploadSupplierPic(res, file, fileList){
-            if(res.data.code == 200){
-                this.supplierParam.supplierLogo = res.url
+            if(res.code == 200){
+                this.supplierParam.supplierLogo = res.fileName
+                this.supplierLogo = res.url
             }
         },
         //供应商提交

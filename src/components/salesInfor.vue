@@ -494,7 +494,8 @@ export default {
                 message: '保存成功',
                 type: 'success'
               })
-              _this.supplierCancel()
+              // _this.supplierCancel()
+              _this.$emit("OK",3)
             } else {
               _this.$message({
                 message: res.message,

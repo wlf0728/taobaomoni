@@ -26,12 +26,12 @@
     </el-row>
     <el-row>
       <el-col :span="14" :offset="5">
-        <basicInfo v-show="activeTab == 1"></basicInfo>
-        <sales-infor v-show="activeTab == 2"></sales-infor>
-        <videoInfo v-show="activeTab == 3"></videoInfo>
-        <pay-ment v-show="activeTab == 4"></pay-ment>
+        <basicInfo v-show="activeTab == 1" @OK="Ok"></basicInfo>
+        <sales-infor v-show="activeTab == 2" @OK="Ok"></sales-infor>
+        <videoInfo v-show="activeTab == 3" @OK="Ok"></videoInfo>
+        <!-- <pay-ment v-show="activeTab == 4"></pay-ment>
         <logi-stics v-show="activeTab == 5"></logi-stics>
-        <after-sale v-show="activeTab == 6"></after-sale>
+        <after-sale v-show="activeTab == 6"></after-sale> -->
       </el-col>
     </el-row>
   </div>
@@ -64,7 +64,13 @@ export default {
       
   },
   methods: {
-    
+    Ok(data){
+      if(data == 2 || data == 3){
+        this.activeTab = data
+      }else if(data == 999){
+
+      }
+    }
   }
 
 }
