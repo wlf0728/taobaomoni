@@ -399,11 +399,46 @@ export default {
         }
     },
     mounted() {
+        this.getProductId()
+        // this.productId = 2
+        this.getBasicInfo()
         this.getBrandOption()
         this.getSuplierOption()
         this.getFirstCator()
     },
     methods: {
+        getProductId(){
+            let query = window.location.search.substring(1)
+            let vars = query.split('&')
+            vars.map(item => {
+                if(item.split('=')[0] == 'id'){
+                    this.basicParam.productId = item.split('=')[1]
+                }
+            })
+        },
+        async getBasicInfo(){
+            if(this.productId){
+                await this.$get(url.baseUrl + 'prod-api/shangpinApp/commodity/query/' + this.productId).then(res =>{
+                    if(res.data.code == 200){
+                        Object.keys(this.basicParam).map(key =>{
+                            if(key == 'twoCategoryId'){
+                                this.basicParam[key] =  String(res.data.data.productInfo[key])
+                            }else{
+                                this.basicParam[key] =  res.data.data.productInfo[key]
+                            }
+                        })
+                        
+                    }
+                })
+                if(this.basicParam.oneCategoryId){
+                    this.$get(url.baseUrl + 'prod-api/productInfoTwoApp/type/list/' +this.basicParam.oneCategoryId ).then(res =>{
+                        if(res.data.code == 200){
+                            this.secondCatorOption= res.data.rows
+                        }
+                    })
+                }
+            }
+        },
         cancel(){
             this.$refs.basicParam.resetFields()
         },

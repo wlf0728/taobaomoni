@@ -29,6 +29,16 @@
                             <i class="el-icon-plus"></i>
                         </el-upload>
                     </el-form-item>
+                    <el-form-item label="详情图" prop="picList">
+                        <el-upload
+                            ref="otherPicUpload"
+                            :action="`${url.baseUrl}prod-api/shangpinApp/pic/common/upload`"
+                            list-type="picture-card"
+                            name="avatarfile"
+                            :on-success="detailPicUpload">
+                            <i class="el-icon-plus"></i>
+                        </el-upload>
+                    </el-form-item>
                     <!-- <el-form-item label="主图视频比例">
                         <el-radio-group v-model="value">
                             <el-radio :label="3">1:1或16:9</el-radio>
@@ -129,6 +139,8 @@ export default {
                 productId:'',
                 mainPic:'',
                 picList:[],
+                picDetails:[],
+                picOrders:[],
             },
             fullPic:'',
             rule:{
@@ -161,7 +173,17 @@ export default {
                 })
             }
         },
+        detailPicUpload(res, file, fileList){
+            this.formParam.picOrders = []
+            if(res.code == 200){
+                this.formParam.picDetails = fileList.map((item,index) => {
+                    this.formParam.picOrders.push(index + 1)
+                    return item.response.fileName
+                })
+            }
+        },
         save(){
+            console.log(JSON.stringify(this.formParam))
             let _this = this
             if(this.formParam.productId){
                 this.$refs.formParam.validate(valid => {
