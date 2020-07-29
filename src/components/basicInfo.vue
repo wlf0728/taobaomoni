@@ -447,12 +447,12 @@ export default {
             let _this = this
             this.$refs.basicParam.validate(valid => {
                 if(valid){
-                    let tempurl = ''
-                    if(_this.basicParam.productId){
-                        tempurl = 'prod-api/shangpinApp/commodity/update'
-                    }else{
-                        tempurl = 'prod-api/shangpinApp/commodity/add'
-                    }
+                    let tempurl = 'prod-api/shangpinApp/commodity/update'
+                    // if(_this.basicParam.productId){
+                    //     tempurl = 'prod-api/shangpinApp/commodity/update'
+                    // }else{
+                    //     tempurl = 'prod-api/shangpinApp/commodity/add'
+                    // }
                     _this.$post(url.baseUrl + tempurl,_this.basicParam).then(res =>{
                         if(res.data.code == 200){
                             _this.$message({
