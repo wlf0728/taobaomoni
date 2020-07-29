@@ -23,9 +23,11 @@
                         <el-upload
                             ref="otherPicUpload"
                             :action="`${url.baseUrl}prod-api/shangpinApp/pic/common/upload`"
+                            :fileList="picList"
                             list-type="picture-card"
                             name="avatarfile"
-                            :on-success="otherPicUpload">
+                            :on-success="otherPicUpload"
+                            :on-remove="otherRemove">
                             <i class="el-icon-plus"></i>
                         </el-upload>
                     </el-form-item>
@@ -33,9 +35,11 @@
                         <el-upload
                             ref="otherPicUpload"
                             :action="`${url.baseUrl}prod-api/shangpinApp/pic/common/upload`"
+                            :file-list="detailList"
                             list-type="picture-card"
                             name="avatarfile"
-                            :on-success="detailPicUpload">
+                            :on-success="detailPicUpload"
+                            :on-remove="detailRemove">
                             <i class="el-icon-plus"></i>
                         </el-upload>
                     </el-form-item>
@@ -150,13 +154,52 @@ export default {
                 picList: [
                     {type:'array', required: true, message: "商品非主图不能为空", trigger: "blur" }
                 ],
-            }
+            },
+            productDetail:{},
+            picList:[],
+            detailList:[],
+            isModify:false,
         }
     },
     mounted() {
         let _this = this
         Bus.$on('sendProductId',res =>{
             _this.formParam.productId = res
+        })
+        Bus.$on('productDetail',res =>{
+            _this.productDetail = res
+            _this.formParam.productId = res.productInfo.productId
+            _this.isModify = true
+            _this.formParam.picListId = []
+            _this.formParam.picDetailsId = []
+            res.list.map(item => {
+                if(item.isMaster == 1){
+                    _this.fullPic = url.baseUrl +'prod-api' + item.picUrl
+                    _this.formParam.mainPic = item.picUrl
+                    _this.formParam.productPicId = item.productPicId
+                }
+                else if(item.isMaster === 0 && item.isDetail === 0){
+                    _this.picList.push({
+                        url:url.baseUrl +'prod-api' + item.picUrl,
+                        response:{
+                            fileName: item.picUrl
+                        }
+                    })
+                    _this.formParam.picList.push(item.picUrl)
+                    _this.formParam.picListId.push(item.productPicId)
+                }
+                else if(item.isMaster === 0 && item.isDetail === 1){
+                    _this.detailList.push({
+                        url:url.baseUrl +'prod-api' + item.picUrl,
+                        response:{
+                            fileName: item.picUrl
+                        }
+                    })
+                    _this.formParam.picOrders[item.picOrder - 1] = item.picOrder
+                    _this.formParam.picDetails.push(item.picUrl)
+                    _this.formParam.picDetailsId.push(item.productPicId)
+                }
+            })
         })
     },
     methods: {
@@ -173,6 +216,11 @@ export default {
                 })
             }
         },
+        otherRemove(file, fileList){
+            this.formParam.picList = fileList.map(item => {
+                return item.response.fileName
+            })
+        },
         detailPicUpload(res, file, fileList){
             this.formParam.picOrders = []
             if(res.code == 200){
@@ -182,26 +230,51 @@ export default {
                 })
             }
         },
+        detailRemove(){
+            this.formParam.picOrders = []
+            if(res.code == 200){
+                this.formParam.picDetails = fileList.map((item,index) => {
+                    this.formParam.picOrders.push(index + 1)
+                    return item.response.fileName
+                })
+            }
+        },
         save(){
-            console.log(JSON.stringify(this.formParam))
             let _this = this
             if(this.formParam.productId){
                 this.$refs.formParam.validate(valid => {
                     if(valid){
-                        _this.$post(url.baseUrl + 'prod-api/shangpinApp/pic/addAll',_this.formParam).then(res =>{
-                            if(res.data.code == 200){
-                                _this.$message({
-                                    message: '保存成功',
-                                    type: 'success'
-                                })
-                                top.location.href="http://182.92.226.253:8080/list/commodity"
-                            }else{
-                                _this.$message({
-                                    message: res.message,
-                                    type: 'error'
-                                })
-                            }
-                        })
+                        if(_this.isModify){
+                            _this.$post(url.baseUrl + 'prod-api/shangpinApp/pic/updateList',_this.formParam).then(res =>{
+                                if(res.data.code == 200){
+                                    _this.$message({
+                                        message: '保存成功',
+                                        type: 'success'
+                                    })
+                                    top.location.href="http://182.92.226.253:8080/list/commodity"
+                                }else{
+                                    _this.$message({
+                                        message: res.message,
+                                        type: 'error'
+                                    })
+                                }
+                            })
+                        }else{
+                            _this.$post(url.baseUrl + 'prod-api/shangpinApp/pic/addAll',_this.formParam).then(res =>{
+                                if(res.data.code == 200){
+                                    _this.$message({
+                                        message: '保存成功',
+                                        type: 'success'
+                                    })
+                                    top.location.href="http://182.92.226.253:8080/list/commodity"
+                                }else{
+                                    _this.$message({
+                                        message: res.message,
+                                        type: 'error'
+                                    })
+                                }
+                            })
+                        }
                     }
                 })
             }else{

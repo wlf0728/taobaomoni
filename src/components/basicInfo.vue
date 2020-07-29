@@ -400,7 +400,7 @@ export default {
     },
     mounted() {
         this.getProductId()
-        // this.productId = 2
+        this.productId = 84
         this.getBasicInfo()
         this.getBrandOption()
         this.getSuplierOption()
@@ -427,7 +427,7 @@ export default {
                                 this.basicParam[key] =  res.data.data.productInfo[key]
                             }
                         })
-                        
+                        Bus.$emit('productDetail',res.data.data)
                     }
                 })
                 if(this.basicParam.oneCategoryId){
