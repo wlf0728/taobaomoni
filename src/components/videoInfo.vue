@@ -142,8 +142,11 @@ export default {
             formParam:{
                 productId:'',
                 mainPic:'',
+                productPicId:'',
                 picList:[],
+                picListId:[],
                 picDetails:[],
+                picDetailsId:[],
                 picOrders:[],
             },
             fullPic:'',
