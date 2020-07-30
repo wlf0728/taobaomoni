@@ -251,7 +251,12 @@ export default {
       },
       thirdCatorOption: [],//三级分类
       form: {
-        productId: ""
+        productId:"",
+        threeCategoryId: "",
+        price:"",
+        inventory:"",
+        productCore:"",
+        barCode:""
       },
       rules: {
         //基础信息部分
@@ -408,6 +413,30 @@ export default {
       _this.supplierParam.twoCategoryId = res.twoCategoryId;
       _this.supplierParam.threeCategoryId = res.threeCategoryId;
       _this.loadList();
+    })
+     Bus.$on('productDetail', res => {
+       if(res){
+        _this.oneCategoryId = res.productInfo.oneCategoryId;
+        _this.supplierParam.oneCategoryId = res.productInfo.oneCategoryId;
+        _this.supplierParam.twoCategoryId = res.productInfo.twoCategoryId;
+        _this.supplierParam.threeCategoryId = res.productInfo.threeCategoryId;
+        _this.form.threeCategoryId=res.productInfo.threeCategoryId;
+        _this.form.price=res.productInfo.price;
+        _this.form.inventory=res.productInfo.inventory;
+        _this.form.productCore=res.productInfo.productCore;
+        _this.form.barCode=res.productInfo.barCode;
+        _this.form.productId = res.productInfo.productId;
+        // Object.keys(_this.form).map(key =>{
+        //     if(key == 'threeCategoryId'){
+        //         _this.form[key] =  String(res.productInfo[key])
+        //         _this.$set(_this.form,key,this.form[key])
+        //     }else{
+        //         _this.form[key] =  res.productInfo[key]
+        //         _this.$set(_this.form,key,this.form[key])
+        //     }
+        //   })
+        _this.loadList();
+       }
     })
   },
   methods: {

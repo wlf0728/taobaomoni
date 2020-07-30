@@ -400,7 +400,7 @@ export default {
     },
     mounted() {
         this.getProductId()
-        this.productId = 84
+        // this.productId = 84
         this.getBasicInfo()
         this.getBrandOption()
         this.getSuplierOption()
